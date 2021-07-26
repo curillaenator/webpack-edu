@@ -4,7 +4,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: ["@babel/polyfill", "./src/index.jsx"],
+  entry: ["@babel/polyfill", "./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "build"), //
     filename: "[name].js",
@@ -16,6 +16,9 @@ module.exports = {
     new HTMLWebpackPlugin({ template: "./src/index.html" }),
     new CleanWebpackPlugin(),
   ],
+  resolve: {
+    extensions: [".js", ".ts", ".jsx", ".tsx"],
+  },
   module: {
     rules: [
       {
@@ -27,7 +30,7 @@ module.exports = {
         use: ["file-loader"],
       },
       {
-        test: /\.m?(js|jsx)$/,
+        test: /\.m?(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
