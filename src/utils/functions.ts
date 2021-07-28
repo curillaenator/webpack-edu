@@ -12,40 +12,42 @@ export const date = (date: string) => {
     day: "numeric",
   };
 
-  const d = new Date(date);
+  const dateObj = new Date(date);
 
-  return d.toLocaleString("ru-RU", options);
+  return dateObj.toLocaleString("ru-RU", options);
 };
 
-// pages in pagination
+// rolling pages in pagination
 
 type TPagesToShow = (
   page: number,
-  totalCnt: number,
-  perPage: number
+  totalPages: number,
+  length: number
 ) => number[];
-export const pageToShow: TPagesToShow = (page, totalCnt, perPage) => {
-  const totalPages = Math.ceil(totalCnt / perPage);
-  let initialArray: number[] = new Array(9).fill(1).map((num, i) => num + i);
 
-  if (totalPages <= 9) {
+export const pageToShow: TPagesToShow = (page, totalPages, length) => {
+  const initialArray: number[] = new Array(length).fill(1).map((n, i) => n + i);
+  const left = Math.floor(length / 2);
+  const right = length % 2 > 0 ? Math.ceil(length / 2) : length / 2;
+
+  if (totalPages <= length) {
     return new Array(totalPages).fill(1).map((num, i) => num + i);
   }
 
-  if (page > 5) {
-    let arr: number[] = [];
-    for (let i = page - 4; i < page + 5; i++) {
+  if (page + right >= totalPages) {
+    const arr: number[] = [];
+    for (let i = totalPages; i > totalPages - length; i--) {
       arr.push(i);
     }
-    return arr;
+    return arr.reverse();
   }
 
-  if (page + 5 >= totalPages) {
-    let arr: number[] = [];
-    for (let i = totalPages; i >= totalPages - 9; i--) {
-      arr.push(i);
-      return arr.reverse();
+  if (page > left) {
+    const arr2: number[] = [];
+    for (let i = page - left; i < page + right; i++) {
+      arr2.push(i);
     }
+    return arr2;
   }
 
   return initialArray;

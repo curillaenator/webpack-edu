@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect, ConnectedProps } from "react-redux";
 import styled from "styled-components";
 
 import Header from "../header";
-import RepoList from "../repoList";
+import ReposPage from "../../pages/repos";
+import RepoPage from "../../pages/repo";
 
 import type { TState } from "../../redux/store";
 
@@ -24,7 +25,11 @@ const App: FC<IApp> = () => {
     <AppContainer>
       <Header title="Поиск по репозиториям GitHub" />
 
-      <RepoList />
+      <Switch>
+        <Route exact path="/" component={ReposPage} />
+        <Route path="/repo/:repoid?" component={RepoPage} />
+        <Redirect to="/" />
+      </Switch>
     </AppContainer>
   );
 };

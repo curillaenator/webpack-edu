@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { icons } from "../../../assets/icons";
@@ -22,10 +23,22 @@ const RepoStyled = styled.div`
     justify-content: space-between;
     margin-bottom: 1rem;
 
-    &-name {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+    &-link {
+      text-decoration: none;
+      color: ${colors.navy};
+      transition: 0.08s linear;
+
+      &-name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 1.5rem;
+        font-weight: 900;
+      }
+
+      &:hover {
+        color: ${colors.navyLight};
+      }
     }
 
     &-stars {
@@ -50,6 +63,24 @@ const RepoStyled = styled.div`
   }
 
   .link {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 40px;
+    padding: 0 1rem;
+    border-radius: 0.5rem;
+    background-color: ${colors.navy};
+    transition: 0.08s linear;
+    color: ${colors.white};
+    text-decoration: none;
+
+    &:hover {
+      background-color: ${colors.navyLight};
+    }
+
+    &:active {
+      background-color: ${colors.navyLight};
+    }
   }
 `;
 
@@ -61,7 +92,9 @@ const Repo: FC<IRepo> = ({ repo }) => {
   return (
     <RepoStyled>
       <div className="header">
-        <h3 className="header-name">{repo.name}</h3>
+        <Link to={`/repo/${repo.id}`} className="header-link">
+          <h3 className="header-link-name">{repo.name}</h3>
+        </Link>
 
         <div className="header-stars">
           {icons.star}
@@ -69,7 +102,7 @@ const Repo: FC<IRepo> = ({ repo }) => {
         </div>
       </div>
 
-      <div className="lastcommit">{date(repo.updated_at)}</div>
+      <div className="lastcommit">Cоздан: {date(repo.updated_at)}</div>
 
       <a className="link" href={repo.html_url}>
         Перейти в репозиторий

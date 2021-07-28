@@ -51,7 +51,7 @@ const RepoList: FC = () => {
 
       <div className="paging">
         <Pagination
-          pages={pageToShow(page, totalRepos, perPage)}
+          pages={pageToShow(page, Math.ceil(totalRepos / perPage), 11)}
           selected={page}
         />
       </div>
