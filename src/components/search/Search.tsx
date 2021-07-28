@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 
-import { useAppDispatch } from "../../hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 import BtnPrimary from "../buttons/btnprimary";
 
-import { getRepos } from "../../redux/reducers/main";
+import { getRepos, setPage, setSearch } from "../../redux/reducers/main";
 
 import { icons } from "../../assets/icons";
 import { colors } from "../../colors/colors";
@@ -40,11 +40,13 @@ const SearchStyled = styled.section`
 
 const Search: FC = () => {
   const dispatch = useAppDispatch();
-  const [search, setSeacrh] = useState("");
+  const { search, perPage } = useAppSelector((state) => state.main);
 
   const handleSeacrh = () => {
-    if (search.trim()) return dispatch(getRepos(search));
-    return dispatch(getRepos());
+    if (search.trim()) {
+      dispatch(setPage(1));
+      dispatch(getRepos(search, 1, perPage));
+    }
   };
 
   return (
@@ -55,7 +57,7 @@ const Search: FC = () => {
           type="text"
           placeholder="Название репозитория"
           value={search}
-          onChange={(e) => setSeacrh(e.target.value)}
+          onChange={(e) => dispatch(setSearch(e.target.value))}
         />
       </div>
 

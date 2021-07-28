@@ -3,10 +3,13 @@ import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import styled from "styled-components";
 
 import Loader from "../loader";
+import Search from "../search";
 import Repo from "./repo";
 import Pagination from "./pagination";
 
 import { getRepos } from "../../redux/reducers/main";
+
+import { pageToShow } from "../../utils/functions";
 
 const RepoListStyled = styled.section`
   .list {
@@ -20,19 +23,12 @@ const RepoListStyled = styled.section`
 
 const RepoList: FC = () => {
   const dispatch = useAppDispatch();
-  const { repos, isFetching, page, totalRepos, perPage } = useAppSelector(
-    (state) => state.main
-  );
+  const { repos, isFetching, search, page, totalRepos, perPage } =
+    useAppSelector((state) => state.main);
 
   useEffect(() => {
-    dispatch(getRepos());
-  }, []);
-
-  const calcPages = () => {
-    return Math.floor(totalRepos / perPage);
-  };
-
-  const pagesss = [1, 2, 3, 4, 5];
+    dispatch(getRepos(search, page, perPage));
+  }, [page]);
 
   if (isFetching) return <Loader title="Стучус в GitHub" />;
 
@@ -45,6 +41,8 @@ const RepoList: FC = () => {
 
   return (
     <RepoListStyled>
+      <Search />
+
       <div className="list">
         {repos.map((repo) => (
           <Repo repo={repo} key={repo.id} />
@@ -52,7 +50,10 @@ const RepoList: FC = () => {
       </div>
 
       <div className="paging">
-        <Pagination pages={pagesss} selected={page} />
+        <Pagination
+          pages={pageToShow(page, totalRepos, perPage)}
+          selected={page}
+        />
       </div>
     </RepoListStyled>
   );

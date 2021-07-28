@@ -3,11 +3,11 @@ import { batch } from "react-redux";
 
 import { githubApi } from "../../api/api";
 
-import type { TThunkC } from "../../types/types";
+import type { TThunk} from "../../types/types";
 
 interface IMainState {
-  isInitialized: boolean;
   isFetching: boolean;
+  search: string;
   repos: any[];
   page: number;
   perPage: number;
@@ -15,8 +15,8 @@ interface IMainState {
 }
 
 const initialState: IMainState = {
-  isInitialized: false,
   isFetching: false,
+  search: "",
   repos: [],
   page: 1,
   perPage: 10,
@@ -27,12 +27,12 @@ const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    setInitialized: (state, action: PayloadAction<boolean>) => {
-      state.isInitialized = action.payload;
-    },
-
     setIsFetching: (state, action: PayloadAction<boolean>) => {
       state.isFetching = action.payload;
+    },
+
+    setSearch: (state, action: PayloadAction<string>) => {
+      state.search = action.payload;
     },
 
     setRepos: (state, action: PayloadAction<any[]>) => {
@@ -50,29 +50,19 @@ const mainSlice = createSlice({
 });
 export const main = mainSlice.reducer;
 
-export const {
-  setInitialized,
-  setIsFetching,
-  setRepos,
-  setPage,
-  setTotalRepos,
-} = mainSlice.actions;
+export const { setIsFetching, setSearch, setRepos, setPage, setTotalRepos } =
+  mainSlice.actions;
 
 // THUNKS
 
-export const initialize: TThunkC<null> = () => async (dispatch) => {
-  batch(() => {
-    dispatch(setInitialized(true));
-  });
-};
+type TGetRepo = (search: string, page: number, perPage: number) => TThunk;
 
-export const getRepos: TThunkC<string> = (search) => {
-  return async (dispatch, getState) => {
-    const page = getState().main.page;
-    const perPage = getState().main.perPage;
+export const getRepos: TGetRepo = (search, page, perPage) => {
+  return async (dispatch) => {
+    const searchValue = search ? search : undefined;
 
     dispatch(setIsFetching(true));
-    const repos = await githubApi.getRepos(search, page, perPage);
+    const repos = await githubApi.getRepos(searchValue, page, perPage);
 
     batch(() => {
       dispatch(setRepos(repos.items));

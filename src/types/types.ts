@@ -19,11 +19,7 @@ export type TReducer<S, A = AnyAction> = (state: S, action: A) => S; // localc s
 
 export type TAction<P> = (payload: P) => { type: string; payload: P }; // action creator
 
-// export type TThunk = ThunkAction<void, TState, unknown, AnyAction>; // thunk
-
-export type TThunkC<P> = (
-  payload?: P
-) => ThunkAction<void, TState, unknown, AnyAction>;
+export type TThunk = ThunkAction<void, TState, unknown, AnyAction>; // thunk
 
 // EVENTS
 
