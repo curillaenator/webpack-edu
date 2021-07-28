@@ -1,13 +1,19 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const base = axios.create({
-  baseURL: "https://api.github.com/",
+  baseURL: "https://api.github.com/search/",
 });
 
 export const githubApi = {
-  getRepos(query: string = "stars:%3E1"): Promise<any[]> {
+  getRepos(
+    query: string = "stars:%3E1",
+    page: number,
+    perPage: number
+  ): Promise<any> {
     return base
-      .get(`search/repositories?q=${query}&sort=stars`)
-      .then((r) => r.data.items);
+      .get(
+        `repositories?q=${query}&sort=stars&per_page=${perPage}&page=${page}`
+      )
+      .then((r) => r.data);
   },
 };

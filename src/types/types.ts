@@ -1,8 +1,17 @@
-import type { SyntheticEvent } from "react";
+import type { SyntheticEvent, ReactNode } from "react";
 import type { AnyAction, ThunkAction } from "@reduxjs/toolkit";
 import type { TState } from "../redux/store";
 
 // COMMON
+
+export interface IBtnPrimary {
+  title: string | number;
+  icon?: ReactNode;
+  param?: number;
+  active?: boolean;
+  disabled?: boolean;
+  handler: (param?: number) => void;
+}
 
 // REDUX & STATE
 

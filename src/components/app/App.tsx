@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Loader from "../loader";
 import Header from "../header";
+import Search from "../search";
 import RepoList from "../repoList";
 
 import { initialize } from "../../redux/reducers/main";
@@ -29,7 +30,9 @@ const App: FC<IApp> = ({ isInitialized, initialize }) => {
 
   return (
     <AppContainer>
-      <Header />
+      <Header title="Поиск по репозиториям GitHub" />
+
+      <Search />
 
       <RepoList />
     </AppContainer>

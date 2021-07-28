@@ -5,11 +5,9 @@ import type { TState, TDispatch } from "../redux/store";
 // import type { MutableRefObject } from "react";
 
 export const useAppDispatch = () => useDispatch<TDispatch>();
-
 export const useAppSelector: TypedUseSelectorHook<TState> = useSelector;
 
 type TUseToggle = (initial: boolean) => [boolean, () => void];
-
 export const useToggle: TUseToggle = (initial) => {
   const [value, setValue] = useState(initial);
   const toggle = () => setValue((prev) => !prev);

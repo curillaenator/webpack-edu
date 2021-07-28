@@ -1,3 +1,5 @@
+// format date from string
+
 interface IOptions {
   year: "numeric" | "2-digit" | undefined;
   month: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined;
