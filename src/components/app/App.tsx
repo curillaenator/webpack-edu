@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { connect, ConnectedProps } from "react-redux";
 import styled from "styled-components";
 
+import Loader from "../loader";
 import Header from "../header";
 import RepoList from "../repoList";
 
@@ -23,6 +24,8 @@ type IApp = ConnectedProps<typeof connector>;
 
 const App: FC<IApp> = ({ isInitialized, initialize }) => {
   useEffect(() => initialize(), []);
+
+  if (!isInitialized) return <Loader fullscreen title="Стартую" />;
 
   return (
     <AppContainer>

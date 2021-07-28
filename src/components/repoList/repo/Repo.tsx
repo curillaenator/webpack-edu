@@ -1,6 +1,10 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
+import { icons } from "../../../assets/icons";
+import { colors } from "../../../colors/colors";
+import { date } from "../../../utils/functions";
+
 const RepoStyled = styled.div`
   margin-bottom: 1rem;
   padding: 1rem;
@@ -25,7 +29,19 @@ const RepoStyled = styled.div`
     }
 
     &-stars {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       flex-shrink: 0;
+
+      &-title {
+      }
+
+      .svg_star {
+        width: 18px;
+        height: 18px;
+        fill: ${colors.yellow};
+      }
     }
   }
 
@@ -46,10 +62,14 @@ const Repo: FC<IRepo> = ({ repo }) => {
     <RepoStyled>
       <div className="header">
         <h3 className="header-name">{repo.name}</h3>
-        <div className="header-stars">{repo.stargazers_count}</div>
+
+        <div className="header-stars">
+          {icons.star}
+          <span className="header-stars-title">{repo.stargazers_count}</span>
+        </div>
       </div>
 
-      <div className="lastcommit">{repo.updated_at}</div>
+      <div className="lastcommit">{date(repo.updated_at)}</div>
 
       <a className="link" href={repo.html_url}>
         Перейти в репозиторий

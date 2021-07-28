@@ -1,13 +1,23 @@
-import React, { FC } from "react";
-import { useAppSelector } from "../../hooks/hooks";
+import React, { FC, useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import styled from "styled-components";
 
+import Loader from "../loader";
 import Repo from "./repo";
+
+import { getInitialRepos } from "../../redux/reducers/main";
 
 const RepoListStyled = styled.section``;
 
 const RepoList: FC = () => {
-  const repos = useAppSelector((state) => state.main.repos);
+  const dispatch = useAppDispatch();
+  const { repos, isFetching } = useAppSelector((state) => state.main);
+
+  useEffect(() => {
+    dispatch(getInitialRepos());
+  }, []);
+
+  if (isFetching) return <Loader title="Стучус в GitHub" />;
 
   return (
     <RepoListStyled>

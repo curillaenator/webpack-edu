@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 
-const HeaderStyled = styled.header``;
+const HeaderStyled = styled.header`
+  margin-bottom: 2rem;
+`;
 
 const Header: FC = () => {
   return (
