@@ -1,20 +1,19 @@
 import React, { FC, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 import Loader from "../../components/loader";
-import BtnPrimary from "../../components/buttons/btnprimary";
-import Author from "../../components/author";
+import NavPannel from "../../components/navpannel";
+import Repository from "../../components/repository";
 
 import { getRepo } from "../../redux/reducers/repo";
 
 import type { History } from "history";
 
 const PageStyled = styled.div`
-  .buttons {
-    margin-bottom: 2rem;
-  }
+  margin-bottom: 2rem;
 `;
 
 interface IParams {
@@ -44,13 +43,13 @@ const RepoPage: FC<IRepoPage> = ({ history, match }) => {
     dispatch(getRepo(username, reponame));
   }, [dispatch, username, reponame]);
 
-  if (isRepoLoading) return <Loader title="GitHub старается..." />;
+  if (isRepoLoading || !repo) return <Loader title="GitHub старается..." />;
 
   return (
     <PageStyled>
-      <div className="buttons">
-        <BtnPrimary title="Назад" handler={() => history.goBack()} />
-      </div>
+      <NavPannel back={() => history.goBack()} />
+
+      <Repository repository={repo} />
     </PageStyled>
   );
 };

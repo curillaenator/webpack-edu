@@ -29,9 +29,7 @@ const RepoList: FC = () => {
   const { repos, isFetching, search, page, totalRepos, perPage } =
     useAppSelector((state) => state.repoList);
 
-  useEffect(() => {
-    dispatch(getRepos(search, page, perPage));
-  }, [page]);
+  useEffect(() => dispatch(getRepos(search, page)), [page]);
 
   if (isFetching) return <Loader title="Стучус в GitHub" />;
 

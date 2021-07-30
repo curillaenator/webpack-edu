@@ -23,6 +23,12 @@ export const number = (value: number | string): string => {
   return new Intl.NumberFormat("ru-RU").format(+value);
 };
 
+// string to uppercase
+
+export const uppecase = (value: string): string => {
+  return value.trim().toUpperCase();
+};
+
 // following pages in pagination
 
 type TPagesToShow = (

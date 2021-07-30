@@ -7,6 +7,8 @@ import Header from "../header";
 import ReposPage from "../../pages/repos";
 import RepoPage from "../../pages/repo";
 
+import { icons } from "../../assets/icons";
+
 import type { TState } from "../../redux/store";
 
 const AppContainer = styled.div`
@@ -23,7 +25,7 @@ type IApp = ConnectedProps<typeof connector>;
 const App: FC<IApp> = () => {
   return (
     <AppContainer>
-      <Header title="Поиск по репозиториям GitHub" />
+      <Header title="Поиск по репозиториям GitHub" icon={icons.github} />
 
       <Switch>
         <Route exact path="/" component={ReposPage} />

@@ -29,9 +29,9 @@ const ButtonStyled = styled.button<IButtonStyled>`
 
   &:hover {
     border: 2px solid
-      ${({ active }) => (active ? colors.navy : colors.navyLight)};
+      ${({ active }) => (active ? colors.navy : colors.orangeLight)};
     background-color: ${({ active }) =>
-      active ? colors.navy : colors.navyLight};
+      active ? colors.navy : colors.orangeLight};
 
     .btntitle {
       color: ${colors.white};

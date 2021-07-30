@@ -55,14 +55,15 @@ export const { setIsFetching, setSearch, setRepos, setPage, setTotalRepos } =
 
 // THUNKS
 
-type TGetRepos = (search: string, page: number, perPage: number) => TThunk;
+type TGetRepos = (search: string | undefined, page: number) => TThunk;
 
-export const getRepos: TGetRepos = (search, page, perPage) => {
-  return async (dispatch) => {
-    const searchValue = search ? search : undefined;
+export const getRepos: TGetRepos = (search, page) => {
+  return async (dispatch, getState) => {
+    const perPage = getState().repoList.perPage;
+    const seacrhVal = search ? search : undefined;
 
     dispatch(setIsFetching(true));
-    const repos = await githubApi.getRepos(searchValue, page, perPage);
+    const repos = await githubApi.getRepos(seacrhVal, page, perPage);
 
     batch(() => {
       dispatch(setRepos(repos.items));

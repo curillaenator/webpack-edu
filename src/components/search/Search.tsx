@@ -21,10 +21,10 @@ const SearchStyled = styled.section`
 
     &-input {
       width: 100%;
-      min-height: 40px;
+      min-height: 56px;
       padding: 0 1rem;
       border: 2px solid ${colors.gray};
-      border-radius: 0.5rem;
+      border-radius: 1.5rem;
       transition: 0.08s linear;
 
       &:focus {
@@ -40,13 +40,11 @@ const SearchStyled = styled.section`
 
 const Search: FC = () => {
   const dispatch = useAppDispatch();
-  const { search, perPage } = useAppSelector((state) => state.repoList);
+  const { search } = useAppSelector((state) => state.repoList);
 
   const handleSeacrh = () => {
-    if (search.trim()) {
-      dispatch(setPage(1));
-      dispatch(getRepos(search, 1, perPage));
-    }
+    dispatch(setPage(1));
+    dispatch(getRepos(search, 1));
   };
 
   return (

@@ -37,11 +37,11 @@ const ButtonStyled = styled.button<IButtonStyled>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  min-height: 40px;
+  min-height: 56px;
   padding: 0 1rem;
   background-color: ${({ active, disabled }) =>
     outerColor({ active, disabled })};
-  border-radius: 0.5rem;
+  border-radius: 1.5rem;
   cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
   transition: 0.12s linear;
 
@@ -58,7 +58,7 @@ const ButtonStyled = styled.button<IButtonStyled>`
 
   &:hover {
     background-color: ${({ disabled }) =>
-      disabled ? colors.silver : colors.navyLight};
+      disabled ? colors.silver : colors.orangeLight};
   }
 
   &:active {
