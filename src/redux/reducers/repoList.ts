@@ -21,7 +21,7 @@ const initialState: IRepoListState = {
   search: "",
   repos: [],
   page: 1,
-  perPage: 12,
+  perPage: 6,
   totalRepos: 0,
 };
 
