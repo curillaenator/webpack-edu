@@ -39,9 +39,14 @@ const RepoPage: FC<IRepoPage> = ({ history, match }) => {
   const { username, reponame } = match.params;
   const { isRepoLoading, repo } = useAppSelector((state) => state.repo);
 
+  const errors = useAppSelector((state) => state.errors);
+  const errorsArr: boolean[] = Object.values(errors);
+
   useEffect(() => {
     dispatch(getRepo(username, reponame));
   }, [dispatch, username, reponame]);
+
+  if (errorsArr.includes(true)) return <Redirect to="/" />;
 
   if (isRepoLoading || !repo) return <Loader title="GitHub старается..." />;
 

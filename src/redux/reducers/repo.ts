@@ -3,6 +3,8 @@ import { batch } from "react-redux";
 
 import { githubApi } from "../../api/api";
 
+import { setRepoDetailedErr } from "./errors";
+
 import type { IRepoDetailed, TThunk } from "../../types/types";
 
 interface IRepoState {
@@ -42,9 +44,18 @@ export const getRepo: TGetRepo = (username, reponame) => {
 
     const repo = await githubApi.getRepoDetails(username, reponame);
 
-    batch(() => {
-      dispatch(setRepo(repo));
-      dispatch(setIsRepoLoading(false));
-    });
+    if (repo !== "error") {
+      return batch(() => {
+        dispatch(setRepo(repo));
+        dispatch(setIsRepoLoading(false));
+      });
+    }
+
+    if (repo === "error") {
+      return batch(() => {
+        dispatch(setRepoDetailedErr(true));
+        dispatch(setIsRepoLoading(false));
+      });
+    }
   };
 };

@@ -3,6 +3,8 @@ import { batch } from "react-redux";
 
 import { githubApi } from "../../api/api";
 
+import { setReposListErr } from "./errors";
+
 import type { IRepoInList, TThunk } from "../../types/types";
 
 interface IRepoListState {
@@ -65,10 +67,19 @@ export const getRepos: TGetRepos = (search, page) => {
     dispatch(setIsFetching(true));
     const repos = await githubApi.getRepos(seacrhVal, page, perPage);
 
-    batch(() => {
-      dispatch(setRepos(repos.items));
-      dispatch(setTotalRepos(repos.total_count));
-      dispatch(setIsFetching(false));
-    });
+    if (repos !== "error") {
+      return batch(() => {
+        dispatch(setRepos(repos.items));
+        dispatch(setTotalRepos(repos.total_count));
+        dispatch(setIsFetching(false));
+      });
+    }
+
+    if (repos === "error") {
+      return batch(() => {
+        dispatch(setReposListErr(true));
+        dispatch(setIsFetching(false));
+      });
+    }
   };
 };

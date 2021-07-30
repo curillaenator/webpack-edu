@@ -298,7 +298,7 @@ const repoDetailed = {
 
 export type IRepoInList = typeof repoInList;
 export type IRepoDetailed = typeof repoDetailed;
-export interface IRepoListResponce {
+export interface IGithubResponce {
   total_count: number;
   incomplete_results: boolean;
   items: IRepoInList[];

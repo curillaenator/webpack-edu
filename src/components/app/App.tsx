@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Header from "../header";
 import ReposPage from "../../pages/repos";
 import RepoPage from "../../pages/repo";
+import ErrorPage from "../../pages/error";
 
 import { icons } from "../../assets/icons";
 
@@ -30,6 +31,7 @@ const App: FC<IApp> = () => {
       <Switch>
         <Route exact path="/" component={ReposPage} />
         <Route path="/repo/:username/:reponame" component={RepoPage} />
+        <Route path="/error" component={ErrorPage} />
         <Redirect to="/" />
       </Switch>
     </AppContainer>
