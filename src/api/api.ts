@@ -1,19 +1,35 @@
 import axios from "axios";
 
+import type { IRepoListResponce, IRepoDetailed } from "../types/types";
+
 const base = axios.create({
-  baseURL: "https://api.github.com/search/",
+  baseURL: "https://api.github.com/",
 });
 
-export const githubApi = {
-  getRepos(
-    query: string = "stars:%3E1",
+// API types
+
+interface IGithubApi {
+  getRepos: (
+    query: string | undefined,
     page: number,
     perPage: number
-  ): Promise<any> {
-    return base
-      .get(
-        `repositories?q=${query}&sort=stars&per_page=${perPage}&page=${page}`
-      )
-      .then((r) => r.data);
+  ) => Promise<IRepoListResponce>;
+
+  getRepoDetails: (
+    username: string,
+    reponame: string
+  ) => Promise<IRepoDetailed>;
+}
+
+export const githubApi: IGithubApi = {
+  getRepos: (query = "stars:%3E1", page, perPage) => {
+    const uri = `search/repositories?q=${query}&sort=stars&per_page=${perPage}&page=${page}`;
+    return base.get(uri).then((r) => r.data);
+  },
+
+  getRepoDetails: (username, reponame) => {
+    const uri = `repos/${username}/${reponame}`;
+    console.log(uri);
+    return base.get(uri).then((r) => r.data);
   },
 };

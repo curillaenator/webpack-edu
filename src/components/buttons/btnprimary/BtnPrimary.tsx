@@ -75,7 +75,7 @@ const BtnPrimary: FC<IBtnPrimary> = ({
   handler = () => {},
 }) => {
   return (
-    <ButtonStyled active={active} disabled={disabled} onClick={handler}>
+    <ButtonStyled active={active} disabled={disabled} onClick={() => handler()}>
       {icon && icon}
       <span className="btntitle">{title}</span>
     </ButtonStyled>

@@ -3,27 +3,27 @@ import { batch } from "react-redux";
 
 import { githubApi } from "../../api/api";
 
-import type { TThunk} from "../../types/types";
+import type { IRepoInList, TThunk } from "../../types/types";
 
-interface IMainState {
+interface IRepoListState {
   isFetching: boolean;
   search: string;
-  repos: any[];
+  repos: IRepoInList[];
   page: number;
   perPage: number;
   totalRepos: number;
 }
 
-const initialState: IMainState = {
+const initialState: IRepoListState = {
   isFetching: false,
   search: "",
   repos: [],
   page: 1,
-  perPage: 10,
+  perPage: 12,
   totalRepos: 0,
 };
 
-const mainSlice = createSlice({
+const repoListSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
@@ -35,7 +35,7 @@ const mainSlice = createSlice({
       state.search = action.payload;
     },
 
-    setRepos: (state, action: PayloadAction<any[]>) => {
+    setRepos: (state, action: PayloadAction<IRepoInList[]>) => {
       state.repos = action.payload;
     },
 
@@ -48,16 +48,16 @@ const mainSlice = createSlice({
     },
   },
 });
-export const main = mainSlice.reducer;
+export const repoList = repoListSlice.reducer;
 
 export const { setIsFetching, setSearch, setRepos, setPage, setTotalRepos } =
-  mainSlice.actions;
+  repoListSlice.actions;
 
 // THUNKS
 
-type TGetRepo = (search: string, page: number, perPage: number) => TThunk;
+type TGetRepos = (search: string, page: number, perPage: number) => TThunk;
 
-export const getRepos: TGetRepo = (search, page, perPage) => {
+export const getRepos: TGetRepos = (search, page, perPage) => {
   return async (dispatch) => {
     const searchValue = search ? search : undefined;
 

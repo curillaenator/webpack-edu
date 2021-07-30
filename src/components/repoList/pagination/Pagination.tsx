@@ -4,7 +4,7 @@ import { useAppDispatch } from "../../../hooks/hooks";
 
 import BtnRound from "../../buttons/btnround";
 
-import { setPage } from "../../../redux/reducers/main";
+import { setPage } from "../../../redux/reducers/repoList";
 
 const PaginationStyled = styled.div`
   display: flex;

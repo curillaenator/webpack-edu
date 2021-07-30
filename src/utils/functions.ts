@@ -17,7 +17,13 @@ export const date = (date: string) => {
   return dateObj.toLocaleString("ru-RU", options);
 };
 
-// rolling pages in pagination
+// format number
+
+export const number = (value: number | string): string => {
+  return new Intl.NumberFormat("ru-RU").format(+value);
+};
+
+// following pages in pagination
 
 type TPagesToShow = (
   page: number,
@@ -27,6 +33,8 @@ type TPagesToShow = (
 
 export const pageToShow: TPagesToShow = (page, totalPages, length) => {
   const initialArray: number[] = new Array(length).fill(1).map((n, i) => n + i);
+  const arr: number[] = [];
+
   const left = Math.floor(length / 2);
   const right = length % 2 > 0 ? Math.ceil(length / 2) : length / 2;
 
@@ -35,19 +43,13 @@ export const pageToShow: TPagesToShow = (page, totalPages, length) => {
   }
 
   if (page + right >= totalPages) {
-    const arr: number[] = [];
-    for (let i = totalPages; i > totalPages - length; i--) {
-      arr.push(i);
-    }
+    for (let i = totalPages; i > totalPages - length; i--) arr.push(i);
     return arr.reverse();
   }
 
   if (page > left) {
-    const arr2: number[] = [];
-    for (let i = page - left; i < page + right; i++) {
-      arr2.push(i);
-    }
-    return arr2;
+    for (let i = page - left; i < page + right; i++) arr.push(i);
+    return arr;
   }
 
   return initialArray;

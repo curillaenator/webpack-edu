@@ -18,12 +18,6 @@ const HeaderStyled = styled.header`
     color: ${colors.white};
     letter-spacing: 0.1rem;
   }
-
-  @media (max-height: 768px) {
-    .apptitile {
-      font-size: 10px;
-    }
-  }
 `;
 
 interface IHeader {

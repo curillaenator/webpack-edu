@@ -11,7 +11,7 @@ import type { TState } from "../../redux/store";
 
 const AppContainer = styled.div`
   max-width: 1440px;
-  min-width: 320px;
+  min-width: 768px;
   margin: 0 auto;
   padding: 0 1.5rem;
 
@@ -27,7 +27,7 @@ const App: FC<IApp> = () => {
 
       <Switch>
         <Route exact path="/" component={ReposPage} />
-        <Route path="/repo/:repoid?" component={RepoPage} />
+        <Route path="/repo/:username/:reponame" component={RepoPage} />
         <Redirect to="/" />
       </Switch>
     </AppContainer>

@@ -7,12 +7,15 @@ import Search from "../search";
 import Repo from "./repo";
 import Pagination from "./pagination";
 
-import { getRepos } from "../../redux/reducers/main";
+import { getRepos } from "../../redux/reducers/repoList";
 
 import { pageToShow } from "../../utils/functions";
 
 const RepoListStyled = styled.section`
   .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     margin-bottom: 2rem;
   }
 
@@ -24,7 +27,7 @@ const RepoListStyled = styled.section`
 const RepoList: FC = () => {
   const dispatch = useAppDispatch();
   const { repos, isFetching, search, page, totalRepos, perPage } =
-    useAppSelector((state) => state.main);
+    useAppSelector((state) => state.repoList);
 
   useEffect(() => {
     dispatch(getRepos(search, page, perPage));

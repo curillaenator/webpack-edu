@@ -5,7 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 
 import BtnPrimary from "../buttons/btnprimary";
 
-import { getRepos, setPage, setSearch } from "../../redux/reducers/main";
+import { getRepos, setPage, setSearch } from "../../redux/reducers/repoList";
 
 import { icons } from "../../assets/icons";
 import { colors } from "../../colors/colors";
@@ -40,7 +40,7 @@ const SearchStyled = styled.section`
 
 const Search: FC = () => {
   const dispatch = useAppDispatch();
-  const { search, perPage } = useAppSelector((state) => state.main);
+  const { search, perPage } = useAppSelector((state) => state.repoList);
 
   const handleSeacrh = () => {
     if (search.trim()) {

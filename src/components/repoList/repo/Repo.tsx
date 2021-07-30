@@ -2,39 +2,36 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import Author from "../../author";
+import BtnLink from "../../buttons/btnlink";
+
 import { icons } from "../../../assets/icons";
 import { colors } from "../../../colors/colors";
-import { date } from "../../../utils/functions";
+import { date, number } from "../../../utils/functions";
 
 const RepoStyled = styled.div`
-  margin-bottom: 1rem;
+  width: calc(100% / 2 - 1rem / 2);
   padding: 1rem;
   border-radius: 1.5rem;
-  box-shadow: 0px 19px 38px rgba(33, 38, 44, 0.15),
-    0px 15px 12px rgba(33, 38, 44, 0.11);
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  box-shadow: 0px 9px 13px ${colors.shadow};
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     margin-bottom: 1rem;
 
     &-link {
+      margin-right: 1rem;
       text-decoration: none;
       color: ${colors.navy};
       transition: 0.08s linear;
-
-      &-name {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 1.5rem;
-        font-weight: 900;
-      }
+      font-size: 1.5rem;
+      font-weight: 700;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
 
       &:hover {
         color: ${colors.navyLight};
@@ -58,29 +55,19 @@ const RepoStyled = styled.div`
     }
   }
 
+  .author {
+    margin-bottom: 1rem;
+  }
+
   .lastcommit {
     margin-bottom: 1rem;
   }
 
-  .link {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    height: 40px;
-    padding: 0 1rem;
-    border-radius: 0.5rem;
-    background-color: ${colors.navy};
-    transition: 0.08s linear;
-    color: ${colors.white};
-    text-decoration: none;
+  .gotorepo {
+  }
 
-    &:hover {
-      background-color: ${colors.navyLight};
-    }
-
-    &:active {
-      background-color: ${colors.navyLight};
-    }
+  @media (min-width: 1024px) {
+    width: calc(100% / 3 - 2rem / 3);
   }
 `;
 
@@ -92,21 +79,30 @@ const Repo: FC<IRepo> = ({ repo }) => {
   return (
     <RepoStyled>
       <div className="header">
-        <Link to={`/repo/${repo.id}`} className="header-link">
-          <h3 className="header-link-name">{repo.name}</h3>
+        <Link
+          to={`/repo/${repo.owner.login}/${repo.name}`}
+          className="header-link"
+        >
+          {repo.name}
         </Link>
 
         <div className="header-stars">
           {icons.star}
-          <span className="header-stars-title">{repo.stargazers_count}</span>
+          <span className="header-stars-title">
+            {number(repo.stargazers_count)}
+          </span>
         </div>
+      </div>
+
+      <div className="author">
+        <Author avatarURL={repo.owner.avatar_url} name={repo.owner.login} />
       </div>
 
       <div className="lastcommit">Cоздан: {date(repo.updated_at)}</div>
 
-      <a className="link" href={repo.html_url}>
-        Перейти в репозиторий
-      </a>
+      <div className="gotorepo">
+        <BtnLink url={repo.html_url} title="Перейти в репозиторий" />
+      </div>
     </RepoStyled>
   );
 };
