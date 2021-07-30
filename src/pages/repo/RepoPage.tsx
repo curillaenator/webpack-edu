@@ -46,7 +46,7 @@ const RepoPage: FC<IRepoPage> = ({ history, match }) => {
     dispatch(getRepo(username, reponame));
   }, [dispatch, username, reponame]);
 
-  if (errorsArr.includes(true)) return <Redirect to="/" />;
+  if (errorsArr.includes(true)) return <Redirect to="/error" />;
 
   if (isRepoLoading || !repo) return <Loader title="GitHub старается..." />;
 

@@ -23,7 +23,8 @@ const errorsSlice = createSlice({
     },
 
     resetAllErrors: (state) => {
-      state = { ...initialState };
+      state.getReposList = false;
+      state.getRepoDetailed = false;
     },
   },
 });

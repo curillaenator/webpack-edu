@@ -12,7 +12,7 @@ const ReposPage: FC = () => {
   const errors = useAppSelector((state) => state.errors);
   const errorsArr: boolean[] = Object.values(errors);
 
-  if (errorsArr.includes(true)) return <Redirect to="/" />;
+  if (errorsArr.includes(true)) return <Redirect to="/error" />;
 
   return (
     <PageStyled>

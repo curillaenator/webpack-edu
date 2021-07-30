@@ -32,7 +32,6 @@ export const githubApi: IGithubApi = {
 
   getRepoDetails: (username, reponame) => {
     const uri = `repos/${username}/${reponame}`;
-    console.log(uri);
     return base
       .get(uri)
       .then((r) => r.data)
