@@ -6,16 +6,21 @@ module.exports = {
   mode: "development",
   entry: ["@babel/polyfill", "./src/index.tsx"],
   output: {
-    path: path.resolve(__dirname, "build"), //
-    filename: "[name].[hash].js",
+    path: path.resolve(__dirname, "build"),
+    filename: "[name].bundle.[hash].js",
     publicPath: "/",
+    clean: true,
   },
   devServer: {
     port: 3000,
     historyApiFallback: true,
+    contentBase: path.join(__dirname, "build"),
   },
   plugins: [
-    new HTMLWebpackPlugin({ template: "./src/index.html" }),
+    new HTMLWebpackPlugin({
+      template: "./src/index.html",
+      title: "Happy Repo",
+    }),
     new CleanWebpackPlugin(),
   ],
   resolve: {
@@ -24,18 +29,21 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(css|less)$/,
-        use: ["style-loader", "css-loader", "less-loader"],
+        test: /\.css$/i,
+        exclude: /node_modules/,
+        use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(jpg|png|jpeg|svg)$/,
-        use: ["file-loader"],
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        exclude: /node_modules/,
+        type: "asset/resource",
       },
       {
-        test: /\.m?(js|jsx|ts|tsx)$/,
+        test: /\.m?(js|jsx|ts|tsx)$/i,
         exclude: /node_modules/,
         use: ["babel-loader"],
       },
     ],
   },
+  devtool: "source-map", // turn off on final production
 };
