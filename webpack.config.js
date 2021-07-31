@@ -7,7 +7,7 @@ module.exports = {
   entry: ["@babel/polyfill", "./src/index.tsx"],
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "[name].bundle.[hash].js",
+    filename: "[name].bundle.[fullhash].js",
     publicPath: "/",
     clean: true,
   },
