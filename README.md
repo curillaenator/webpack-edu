@@ -1,6 +1,6 @@
 # Поиск по GitHub репозиториям
 
-<!-- [Посмотреть в работе](http://curillaenator.github.io/webpack-edu) -->
+[Посмотреть в работе](http://curillaenator.github.io/webpack-edu)
 
 ## Стек:
 
