@@ -8,13 +8,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "[name].bundle.[fullhash].js",
-    publicPath: "/webpack-edu",
+    publicPath: "/",
     clean: true,
   },
   devServer: {
     port: 3000,
     historyApiFallback: true,
-    contentBase: path.join(__dirname, "build"),
   },
   plugins: [
     new HTMLWebpackPlugin({

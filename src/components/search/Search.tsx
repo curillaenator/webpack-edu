@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, SyntheticEvent } from "react";
 import styled from "styled-components";
 
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
@@ -10,7 +10,7 @@ import { getRepos, setPage, setSearch } from "../../redux/reducers/repoList";
 import { icons } from "../../assets/icons";
 import { colors } from "../../colors/colors";
 
-const SearchStyled = styled.section`
+const FormStyled = styled.form`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -42,13 +42,14 @@ const Search: FC = () => {
   const dispatch = useAppDispatch();
   const { search } = useAppSelector((state) => state.repoList);
 
-  const handleSeacrh = () => {
+  const onSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
     dispatch(setPage(1));
     dispatch(getRepos(search, 1));
   };
 
   return (
-    <SearchStyled>
+    <FormStyled onSubmit={onSubmit}>
       <div className="textfield">
         <input
           className="textfield-input"
@@ -60,9 +61,9 @@ const Search: FC = () => {
       </div>
 
       <div className="buttons">
-        <BtnPrimary title="Поиск" icon={icons.search} handler={handleSeacrh} />
+        <BtnPrimary title="Поиск" icon={icons.search} handler={() => {}} />
       </div>
-    </SearchStyled>
+    </FormStyled>
   );
 };
 
