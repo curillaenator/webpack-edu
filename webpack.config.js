@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "[name].bundle.[fullhash].js",
-    publicPath: "/",
+    publicPath: "/webpack-edu",
     clean: true,
   },
   devServer: {
